@@ -1,0 +1,6 @@
+[submodule "wedding-site"]
+	path = wedding-site
+	url = git@github.com:mastree/wedding-site.git
+[submodule "wedding-site-be"]
+	path = wedding-site-be
+	url = git@github.com:mastree/wedding-site-be.git
