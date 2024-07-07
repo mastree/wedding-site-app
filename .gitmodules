@@ -1,5 +1,5 @@
 [submodule "wedding-site"]
-	path = wedding-site
+	path = nginx/wedding-site
 	url = git@github.com:mastree/wedding-site.git
 [submodule "wedding-site-be"]
 	path = wedding-site-be
