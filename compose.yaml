@@ -12,3 +12,8 @@ services:
       - PORT=${BE_PORT}
       - API_URL=${BE_API_URL}
       - ENVIRONMENT=${BE_ENVIRONMENT}
+  frontend:
+    build:
+      context: ./wedding-site
+    ports:
+      - 4200:4000
