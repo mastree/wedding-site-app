@@ -1,0 +1,14 @@
+services:
+  nginx:
+    build:
+      context: ./nginx
+    ports:
+      - 80:80
+      - 443:443
+  backend:
+    build:
+      context: ./wedding-site-be
+    environment:
+      - PORT=${BE_PORT}
+      - API_URL=${BE_API_URL}
+      - ENVIRONMENT=${BE_ENVIRONMENT}
