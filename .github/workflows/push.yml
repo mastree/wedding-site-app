@@ -8,9 +8,10 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-24.04
-    timeout-minutes: 40
+    timeout-minutes: 60
     steps:
       - name: Update Repo & Deploy
+        timeout-minutes: 60
         uses: appleboy/ssh-action@v0.1.2
         env:
           BE_PORT: ${{ secrets.BE_PORT }}
