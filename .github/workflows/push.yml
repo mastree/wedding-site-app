@@ -22,6 +22,7 @@ jobs:
           key: ${{ secrets.SSH_KEY }} # Private or public key of the server
           username: ${{ secrets.SSH_USERNAME }} # User of the server you want to ssh into
           envs: APP_PORT,APP_API_URL,APP_ENVIRONMENT
+          command_timeout: 60m
           script: |
             if cd repo; then git pull; else git clone git@github.com:mastree/wedding-site-app.git repo; cd repo; fi
             git submodule update --init --recursive --remote
