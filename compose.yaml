@@ -2,6 +2,7 @@ services:
   backend:
     build:
       context: ./wedding-site-be
+    image: backend:latest
     environment:
       - PORT=${BE_PORT}
       - API_URL=${BE_API_URL}
@@ -10,6 +11,7 @@ services:
   frontend:
     build:
       context: ./wedding-site
+    image: frontend:latest
     ports:
       - 80:80
       - 443:443

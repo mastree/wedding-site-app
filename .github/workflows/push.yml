@@ -10,6 +10,21 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 60
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Build Docker image
+        timeout-minutes: 10
+        run: docker compose build
+
+      - name: Transfer Docker image to remote server
+        timeout-minutes: 30
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_KEY }}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          docker save frontend backend | ssh -o StrictHostKeyChecking=no -C ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} docker load
+
       - name: Update Repo & Deploy
         timeout-minutes: 60
         uses: appleboy/ssh-action@v0.1.2
@@ -26,5 +41,5 @@ jobs:
           script: |
             if cd repo; then git pull; else git clone git@github.com:mastree/wedding-site-app.git repo; cd repo; fi
             git submodule update --init --recursive --remote
-            BE_PORT=${BE_PORT} BE_API_URL=${BE_API_URL} BE_ENVIRONMENT=${BE_ENVIRONMENT} docker compose up --force-recreate --build -d
+            BE_PORT=${BE_PORT} BE_API_URL=${BE_API_URL} BE_ENVIRONMENT=${BE_ENVIRONMENT} docker compose up -d
             docker image prune -f
