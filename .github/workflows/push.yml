@@ -13,6 +13,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Sync submodules
+        timeout-minutes: 10
+        run: git submodule update --init --recursive --remote
+
       - name: Build Docker image
         timeout-minutes: 10
         run: docker compose build
@@ -25,7 +29,7 @@ jobs:
           chmod 600 ~/.ssh/id_ed25519
           docker save frontend backend | ssh -o StrictHostKeyChecking=no -C ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} docker load
 
-      - name: Update Repo & Deploy
+      - name: Update repo & deploy
         timeout-minutes: 60
         uses: appleboy/ssh-action@v0.1.2
         env:
