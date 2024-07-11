@@ -19,8 +19,7 @@ services:
     volumes:
       - ./wedding-site/nginx/:/etc/nginx/:rw
       - /var/www/certbot/:/var/www/certbot/:ro
-    # - /etc/letsencrypt/ssl/fullchain.pem:/etc/nginx/ssl/fullchain.pem:ro
-    # - /etc/letsencrypt/ssl/privkey.pem:/etc/nginx/ssl/privkey.pem:ro
+      - /etc/letsencrypt/:/etc/letsencrypt/:ro
   certbot:
     image: certbot/certbot:latest
     profiles: [certbot]
